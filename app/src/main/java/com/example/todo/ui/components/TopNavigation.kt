@@ -1,6 +1,6 @@
 package com.example.todo.ui.components
 
-import android.graphics.Paint.Align
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,18 +15,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
-import androidx.compose.material3.Shapes
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,10 +37,8 @@ fun TopNavBar() {
        contentAlignment = Alignment.BottomStart,
        modifier = Modifier
            .fillMaxWidth()
-           .height(96.dp)
-           .padding(horizontal = 16.dp)
-
-       ,
+           .height(112.dp)
+           .padding(horizontal = 16.dp),
         content = {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -64,8 +54,6 @@ fun TopNavBar() {
                           .clip(shape = CircleShape)
                           .size(width = 64.dp, height = 64.dp)
                   )
-
-
                     Row {
 
                         IconButton(
@@ -102,6 +90,4 @@ fun TopNavBar() {
             )
         }
     )
-
-
 }
