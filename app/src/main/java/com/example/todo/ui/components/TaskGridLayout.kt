@@ -1,39 +1,32 @@
 package com.example.todo.ui.components
 
-import android.widget.GridLayout
-import android.widget.Space
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.random.Random
+
+
+val titles : List<String> = listOf("In Progress", "Continued", "Canceled", "Delayed")
+
 
 @Composable
 fun TaskGridLayout () {
@@ -62,7 +55,7 @@ fun TaskGridLayout () {
                 verticalArrangement = Arrangement.spacedBy(space = 4.dp),
                 content = {
                     items(count = 4)  {
-                            item -> TaskCountBox()
+                            item -> TaskCountBox(title = titles[item])
                     }
                 }
             )
@@ -72,11 +65,15 @@ fun TaskGridLayout () {
 
 
 @Composable
-fun TaskCountBox() {
+fun TaskCountBox(title: String) {
+
+    val backgroundColor = remember { getRandomColor() }
+    val textColor = if(isColorDark(color = backgroundColor)) Color.White else Color.Black
+
     Box (
         modifier = Modifier
         .background(
-            color = Color.Red,
+            color = backgroundColor,
             shape = CircleShape
         )
             .padding(vertical = 4.dp, horizontal = 4.dp),
@@ -90,11 +87,11 @@ fun TaskCountBox() {
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
                     Text(
-                        text = "In Prograss",
+                        color = textColor,
+                        text = title,
                         modifier = Modifier.padding(start = 12.dp)
                     )
                     TaskCountCircle()
-
                 }
             )
         }
@@ -114,4 +111,25 @@ fun  TaskCountCircle() {
             Text(text= "02")
         }
     )
+}
+
+
+
+fun getRandomColor(): Color {
+    val red = Random.nextInt(until = 256)
+    val green = Random.nextInt(until = 256)
+    val blue = Random.nextInt(until = 256)
+
+    return  Color(red = red / 255f, green = green / 255f, blue = blue / 255f)
+}
+
+
+fun isColorDark(color: Color) : Boolean {
+    val red = color.red * 255
+    val green = color.green * 255
+    val blue = color.blue  * 255
+
+    val luminance = 0.299 * red + 0.587 * green + 0.114 * blue
+
+    return  luminance < 128
 }

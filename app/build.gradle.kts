@@ -96,5 +96,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.service)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.reactivestreams.ktx)
+    implementation(libs.android.compose.material.icons.extented.android)
 
 }
